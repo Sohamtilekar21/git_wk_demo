@@ -45,61 +45,6 @@
         <div id="dino"></div>
     </div>
     <script>
-        const dino = document.getElementById('dino');
-        const game = document.getElementById('game');
-        let isJumping = false;
-
-        function jump() {
-            if (isJumping) return;
-            isJumping = true;
-            let jumpHeight = 0;
-
-            const jumpInterval = setInterval(() => {
-                if (jumpHeight >= 80) {
-                    clearInterval(jumpInterval);
-                    const fallInterval = setInterval(() => {
-                        if (jumpHeight <= 0) {
-                            clearInterval(fallInterval);
-                            isJumping = false;
-                        }
-                        jumpHeight -= 5;
-                        dino.style.bottom = jumpHeight + 'px';
-                    }, 20);
-                }
-                jumpHeight += 5;
-                dino.style.bottom = jumpHeight + 'px';
-            }, 20);
-        }
-
-        document.addEventListener('keydown', jump);
-
-        function createCactus() {
-            const cactus = document.createElement('div');
-            cactus.classList.add('cactus');
-            cactus.style.left = '100vw';
-            game.appendChild(cactus);
-
-            const cactusInterval = setInterval(() => {
-                const dinoRect = dino.getBoundingClientRect();
-                const cactusRect = cactus.getBoundingClientRect();
-
-                if (cactusRect.right < 0) {
-                    clearInterval(cactusInterval);
-                    cactus.remove();
-                } else if (
-                    cactusRect.left < dinoRect.right &&
-                    cactusRect.right > dinoRect.left &&
-                    cactusRect.bottom > dinoRect.top
-                ) {
-                    alert('Game Over! Reload to play again.');
-                    clearInterval(cactusInterval);
-                    location.reload();
-                }
-                cactus.style.left = cactus.offsetLeft - 5 + 'px';
-            }, 20);
-        }
-
-        setInterval(createCactus, 1500);
     </script>
 </body>
 </html>
